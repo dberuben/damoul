@@ -1,6 +1,8 @@
 ---
+chatRoom: "pd"
+issueProjectName: "salope"
 buildName: "damoul"
-codeReview: false
+codeReview: true
 links:
   Git: "git@github.com:dberuben/damoul.git"
   Job: "http://i-0443349d053efe3da:30584/job/damoul"

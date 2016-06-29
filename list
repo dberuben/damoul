@@ -1,0 +1,4 @@
+#!/bin/bash
+hostname=$1
+ip=`knife node list | grep $1`
+printf '%s\n' "${ip[@]}"

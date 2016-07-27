@@ -3,8 +3,8 @@
 #HOWTO : sh add_k8s_user dberuben token
 #Update the CA file from your master
 
-CLUSTER=k8s.ssense.com
-SERVER_IP=api.k8s.ssense.com
+CLUSTER=k8s.domain.com
+SERVER_IP=api.k8s.domain.com
 K8S_SSL_PATH=~/kube/ssl/
 CONFIG_PATH=~/kube
 CONFIG_PATH_ACCOUNT=~/kube/account/
@@ -38,7 +38,7 @@ mkdir -p $CONFIG_PATH
 mkdir -p $K8S_SSL_PATH
 
 #CA file from your master
-cat > ~/.kube/ssl/ca.crt <<EOF
+cat > ~/kube/ssl/ca.crt <<EOF
 -----BEGIN CERTIFICATE-----
 MIIC1zCCAb+gAwIBAgIQNJDQkGgTw87e0mURzniFmDANBgkqhkiG9w0BAQsFADAV
 MRMwEQYDVQQDEwprdWJlcm5ldGVzMB4XDTE2MDcyNDE0MjIzM1oXDTI2MDcyNDE0
@@ -65,7 +65,7 @@ TOKEN=$(kubectl describe secret $1 | grep "token:" | awk {'print $2'})
 kubectl --kubeconfig=$CONFIG_PATH/$1 config set-cluster $CLUSTER \
   --certificate-authority=$K8S_SSL_PATH/ca.crt \
   --embed-certs=true \
-  --server=https://api.k8s.ssense.com
+  --server=https://api.k8s.domain.com
 
 kubectl --kubeconfig=$CONFIG_PATH/$1 config set-credentials $1 --token $TOKEN
 

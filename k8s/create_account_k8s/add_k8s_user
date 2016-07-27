@@ -38,7 +38,7 @@ mkdir -p $CONFIG_PATH
 mkdir -p $K8S_SSL_PATH
 
 #CA file from your master
-cat > ~/kube/ssl/ca.crt <<EOF
+cat > $K8S_SSL_PATH/ca.crt <<EOF
 -----BEGIN CERTIFICATE-----
 MIIC1zCCAb+gAwIBAgIQNJDQkGgTw87e0mURzniFmDANBgkqhkiG9w0BAQsFADAV
 MRMwEQYDVQQDEwprdWJlcm5ldGVzMB4XDTE2MDcyNDE0MjIzM1oXDTI2MDcyNDE0

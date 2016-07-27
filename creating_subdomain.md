@@ -5,8 +5,9 @@ You can create a subdomain that uses Amazon Route 53 as the DNS service without 
 
 exemple :
 
-your main domain is `exemple.com` but you want to create a subdomain NameServer.
+Your main domain is `exemple.com` but you want to create a subdomain NameServer.
 
+Stat of your domain.
 
 > dig ns exemple.com
 > 
@@ -20,10 +21,12 @@ your main domain is `exemple.com` but you want to create a subdomain NameServer.
 You want to keep those records, now lets create the subdomain.
 
 On your `route 53` create the subdomain :
+
 `Create Hosted zone`
+
 Fill up the box `Domain Name:` with your subdomain : k8s.exemple.com
 
-`Route 53` should generate some NS server like :
+`Route 53` should generate your NS server like :
 
 ```
 ;; ANSWER SECTION:
@@ -35,5 +38,17 @@ ns-1149.awsdns-27.org.
 
 With your registrar add those NS server to your subdomain.
 
-k8s.exemple.com
+The result should be.
+
+>dig ns k8s.ssense.com
+
+```
+;; ANSWER SECTION:
+k8s.exemple.com.		172800	IN	NS	ns-613.awsdns-13.net.
+k8s.exemple.com.		172800	IN	NS	ns-75.awsdns-04.org.
+k8s.exemple.com.		172800	IN	NS	ns-1022.awsdns-35.com.
+k8s.exemple.com.		172800	IN	NS	ns-1149.awsdns-27.co.uk.
+```
+
+Wait until the NS replication is ok
 

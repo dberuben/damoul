@@ -40,7 +40,7 @@ With your registrar add those NS server to your subdomain.
 
 The result should be.
 
->dig ns k8s.ssense.com
+>dig ns k8s.exemple.com
 
 ```
 ;; ANSWER SECTION:

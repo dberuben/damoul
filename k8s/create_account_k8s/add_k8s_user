@@ -1,6 +1,6 @@
 #!/bin/bash
 
-#HOWTO : sh add_k8s_user dberuben token
+#HOWTO : sh add_k8s_user dberuben 
 #Update the CA file from your master
 
 CLUSTER=k8s.domain.com

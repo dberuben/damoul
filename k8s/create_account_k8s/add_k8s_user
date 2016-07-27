@@ -1,0 +1,76 @@
+#!/bin/bash
+
+#HOWTO : sh add_k8s_user dberuben token
+#Update the CA file from your master
+
+CLUSTER=k8s.ssense.com
+SERVER_IP=api.k8s.ssense.com
+K8S_SSL_PATH=~/kube/ssl/
+CONFIG_PATH=~/kube
+CONFIG_PATH_ACCOUNT=~/kube/account/
+
+mkdir -p $CONFIG_PATH_ACCOUNT
+
+cat > $CONFIG_PATH_ACCOUNT/secret.yml <<EOF
+apiVersion: v1
+kind: Secret
+metadata:
+  name: $1-secret
+  annotations: 
+    kubernetes.io/service-account.name: $1 
+type: kubernetes.io/service-account-token
+EOF
+
+kubectl create -f $CONFIG_PATH_ACCOUNT/secret.yml
+
+cat > $CONFIG_PATH_ACCOUNT/serviceaccount.yml <<EOF
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: $1
+EOF
+
+kubectl create -f $CONFIG_PATH_ACCOUNT/serviceaccount.yml
+
+sleep 5
+
+mkdir -p $CONFIG_PATH
+mkdir -p $K8S_SSL_PATH
+
+#CA file from your master
+cat > ~/.kube/ssl/ca.crt <<EOF
+-----BEGIN CERTIFICATE-----
+MIIC1zCCAb+gAwIBAgIQNJDQkGgTw87e0mURzniFmDANBgkqhkiG9w0BAQsFADAV
+MRMwEQYDVQQDEwprdWJlcm5ldGVzMB4XDTE2MDcyNDE0MjIzM1oXDTI2MDcyNDE0
+MjIzM1owFTETMBEGA1UEAxMKa3ViZXJuZXRlczCCASIwDQYJKoZIhvcNAQEBBQAD
+ggEPADCCAQoCggEBAJcKLxmlYMwzR8f8qnRq2yGuowsv4Hk+l/koWpm6Cfq7KJAP
+v2txUJmNZeHqVaFeHtPW0k1X7ighM5u6A8pYIRsF4m84CWA9i+F1eZ4HcRtoIW2z
+lz6qERzwtuSLVHxptu2+1OxWNSa4Riznm4Zhqxx4OIjF8fp2qi2CK+UAEKtUVZln
+eKExI2KIHL/rLAZbIX0sk/rHKtnhMyqBt/GnX/Ltdrng9JjIQnnUFL6ZvRNFAzad
+awWvBoFjNXKFOofB9ES9m/s3TjiQk1XK7U41o2bFPYFpWuIs+l42KBXgLCdTtg7+
+oruSz8z7ef4YElVI4z4nXumXuLYqkl8sqjzd2CsCAwEAAaMjMCEwDgYDVR0PAQH/
+BAQDAgEGMA8GA1UdEwEB/wQFMAMBAf8wDQYJKoZIhvcNAQELBQADggEBADmZ1rju
+jmOTtYOzBdXq1Cg7AYa+Jfp+f1TjZ+DUsAaDu3NW9tggXKQ1ibI89n3lUp4jxQ4Z
+GJAwVx0nOjFaKyj89uEN6XPCGLYbOI0XYObhfBLpkChiRADJOwoK86hMub1U1LWq
+JmuKyCk1gl8rDPETZwAmOJRSRTZM3Go6pzzrUINHGKsLe3Jionn+6c8m4Qvn3Dyh
+N62PJ1TlgwN9/MKeiEYc+dv+l5PINbz3fwvdR65gauhPZM5w2SHUImmbvaYtPkX0
+p6YGHAsq/k1Cx3Npyf9ATigfBF7limDqwbsx2ZFC6MT2FB9MPlvVOtOMdRGChKCY
+lWJoQkaHWa8dFOo=
+-----END CERTIFICATE-----
+EOF
+
+TOKEN=$(kubectl describe secret $1 | grep "token:" | awk {'print $2'})
+
+
+kubectl --kubeconfig=$CONFIG_PATH/$1 config set-cluster $CLUSTER \
+  --certificate-authority=$K8S_SSL_PATH/ca.crt \
+  --embed-certs=true \
+  --server=https://api.k8s.ssense.com
+
+kubectl --kubeconfig=$CONFIG_PATH/$1 config set-credentials $1 --token $TOKEN
+
+kubectl --kubeconfig=$CONFIG_PATH/$1 config set-context $CLUSTER \
+  --cluster=$CLUSTER \
+  --user=$1
+
+kubectl --kubeconfig=$CONFIG_PATH/$1 config use-context $CLUSTER

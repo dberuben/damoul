@@ -1,0 +1,49 @@
+
+{
+"services" : [
+
+          {
+    "title": "Spinnaker Dashboard",
+    "description": "Spinnaker UI",
+    "link": "http://192.168.99.105:31194"
+    },
+
+
+
+    {
+    "title": "Kubernetes Dashboard",
+    "description": "Management UI",
+    "link": "http://192.168.99.105:30000"
+    },
+
+        {
+    "title": "Tectonic Console",
+    "description": "Alternative management UI",
+    "link": "http://192.168.99.105:30505"
+    },
+
+
+    {
+    "title": "Jenkins",
+    "description": "Automation Server",
+    "link": "http://192.168.99.105:30790"
+    },
+
+        {
+    "title": "Cluster Performace",
+    "description": "Performance analytics UI",
+    "link": "http://192.168.99.105:32011"
+    },
+      {
+    "title": "Container Image Registry",
+    "description": "Local image repository",
+    "link": "http://192.168.99.105:32456"
+    },
+    {
+    "title": "Apt Repository",
+    "description": "Local apt repository",
+    "link": "http://192.168.99.105:31786"
+    }
+
+]
+}

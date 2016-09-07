@@ -5,37 +5,37 @@
           {
     "title": "Spinnaker Dashboard",
     "description": "Spinnaker UI",
-    "link": "http://192.168.99.104:30754"
+    "link": "http://192.168.99.106:32427"
     },
     {
     "title": "Kubernetes Dashboard",
     "description": "Management UI",
-    "link": "http://192.168.99.104:30000"
+    "link": "http://192.168.99.106:30000"
     },
     {
     "title": "Tectonic Console",
     "description": "Alternative management UI",
-    "link": "http://192.168.99.104:32177"
+    "link": "http://192.168.99.106:30913"
     },
     {
     "title": "Jenkins",
     "description": "Automation Server",
-    "link": "http://192.168.99.104:31960"
+    "link": "http://192.168.99.106:32566"
     },
     {
     "title": "Cluster Performace",
     "description": "Performance analytics UI",
-    "link": "http://192.168.99.104:31893"
+    "link": "http://192.168.99.106:32251"
     },
     {
     "title": "Container Image Registry",
     "description": "Local image repository",
-    "link": "http://192.168.99.104:31222"
+    "link": "http://192.168.99.106:31793"
     },
     {
     "title": "Apt Repository",
     "description": "Local apt repository",
-    "link": "http://192.168.99.104:30838"
+    "link": "http://192.168.99.106:30292"
     }
 
 ]

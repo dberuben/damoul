@@ -49,15 +49,15 @@ for component in components:
   c("applications/" + component + "/deployment.yml")
   c("applications/" + component + "/service.json")
 
-components = ('registry')
-for component in components:
-  c("applications/" + component + "/deployment.yml")
-  c("applications/" + component + "/service.json")
-  c("applications/" + component + "/claim.yaml")
-  c("applications/" + component + "/pv.yaml")
-
 
 c("applications/kubeproxy/pod.yml")
+
+c("applications/registry/deployment.yml")
+c("applications/registry/service.json")
+c("applications/registry/claim.yaml")
+c("applications/registry/pv.yaml")
+
+
 
 components = ('cassandra', 'redis')
 for component in components:
